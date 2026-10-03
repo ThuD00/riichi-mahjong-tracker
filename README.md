@@ -14,6 +14,9 @@ Harjoitustyön aiheena on riichi-mahjongin pelien ja pelaajien tilastojen hallin
   - Keskimääräinen sijoitus
   - Keskimääräinen pistemäärä
   - Keskimääräinen uma-piste (pistesäätö, jolla annetaan lisäpisteitä parhaiten sijoittuneille ja vähennetään pisteitä huonommin sijoittuneilta pelin lopussa)
+  - Suurin pistemäärä?
+  - Piste yhteensä?
+  - Sijoitus?
 
 ### Hallinta näkymä
 - Pelien, pelaajien ja pelipaikkojen hallinta (lisäys, muokkaus, poisto)
