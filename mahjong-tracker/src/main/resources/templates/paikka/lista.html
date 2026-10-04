@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paikkalista</title>
+  <link type="text/css" 
+        rel="stylesheet" 
+        href="css/bootstrap.min.css" 
+        th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+  <h1 style="margin: 10px;">Paikat</h1>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Nimi/Seura</th>
+      <th>Kaupunki</th>
+    </tr>
+    
+    <tr th:each="paikka : ${paikat}">
+      <td th:text="${paikka.nimi}"></td>
+      <td th:text="${paikka.Kaupunki}"></td>
+      <td>
+        <a th:href="@{/paikka/delete/{id}(id=${paikka.paikkaId})}"
+          class="btn btn-danger"
+          onclick="return confirm('Are you sure you want to delete?')">
+          Poista
+        </a>
+      </td>
+      <td>
+        <a th:href="@{/paikka/edit/{id}(id=${paikka.paikkaId})}" class="btn btn-primary">
+          Muokkaa
+        </a>
+      </td>
+    </tr>
+  </table>
+  <a href="/paikka/add" class="btn-success">Lisää paikka</a>
+</body>
+</html>
