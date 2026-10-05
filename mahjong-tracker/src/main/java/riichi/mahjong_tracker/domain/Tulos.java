@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity 
-public class Tulokset {
+public class Tulos {
 
   @Id 
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,11 +18,11 @@ public class Tulokset {
 
   private Integer umat;
 
-  public Tulokset() {
+  public Tulos() {
 
   }
 
-  public Tulokset(Integer pisteet, Integer sijoitus, Integer umat) {
+  public Tulos(Integer pisteet, Integer sijoitus, Integer umat) {
     this.pisteet = pisteet;
     this.sijoitus = sijoitus;
     this.umat = umat;
@@ -62,7 +62,7 @@ public class Tulokset {
 
   @Override
   public String toString() {
-    return "Tulokset [tulosId=" + tulosId + ", pisteet=" + pisteet + ", sijoitus=" + sijoitus + ", umat=" + umat + "]";
+    return "Tulos [tulosId=" + tulosId + ", pisteet=" + pisteet + ", sijoitus=" + sijoitus + ", umat=" + umat + "]";
   }
   
 }

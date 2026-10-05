@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelilista</title>
+  <link type="text/css" 
+        rel="stylesheet" 
+        href="css/bootstrap.min.css" 
+        th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+  <h1 style="margin: 10px;">Pelit</h1>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Päivämäärä</th>
+    </tr>
+    
+    <tr th:each="peli : ${pelit}">
+      <td th:text="${peli.pvm}"></td>
+      <td>
+        <a th:href="@{/peli/delete/{id}(id=${peli.peliId})}"
+          class="btn btn-danger"
+          onclick="return confirm('Are you sure you want to delete?')">
+          Poista
+        </a>
+      </td>
+      <td>
+        <a th:href="@{/peli/edit/{id}(id=${peli.peliId})}" class="btn btn-primary">
+          Muokkaa
+        </a>
+      </td>
+    </tr>
+  </table>
+  <a href="/peli/add" class="btn-success">Lisää peli</a>
+</body>
+</html>

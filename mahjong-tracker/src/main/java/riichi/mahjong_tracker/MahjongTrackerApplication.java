@@ -12,11 +12,11 @@ import org.springframework.context.annotation.Bean;
 import riichi.mahjong_tracker.domain.Paikka;
 import riichi.mahjong_tracker.domain.Pelaaja;
 import riichi.mahjong_tracker.domain.Peli;
-import riichi.mahjong_tracker.domain.Tulokset;
+import riichi.mahjong_tracker.domain.Tulos;
 import riichi.mahjong_tracker.repository.PaikkaRepository;
 import riichi.mahjong_tracker.repository.PelaajaRepository;
 import riichi.mahjong_tracker.repository.PeliRepository;
-import riichi.mahjong_tracker.repository.TuloksetRepository;
+import riichi.mahjong_tracker.repository.TulosRepository;
 
 @SpringBootApplication
 public class MahjongTrackerApplication {
@@ -31,7 +31,7 @@ public class MahjongTrackerApplication {
     PaikkaRepository paikkaRepository,
     PelaajaRepository pelaajaRepository,
     PeliRepository peliRepository,
-    TuloksetRepository tuloksetRepository
+    TulosRepository tulosRepository
   ) {
     return (args) -> {
       log.info("Paikat");
@@ -59,15 +59,15 @@ public class MahjongTrackerApplication {
       peliRepository.save(peli3);
       
       log.info("Tulokset");
-      Tulokset tulos1 = new Tulokset(46100, 1, 15000);
-      Tulokset tulos2 = new Tulokset(34600, 2, 5000);
-      Tulokset tulos3 = new Tulokset(11300, 3, -5000);
-      Tulokset tulos4 = new Tulokset(8000, 4, -15000);
+      Tulos tulos1 = new Tulos(46100, 1, 15000);
+      Tulos tulos2 = new Tulos(34600, 2, 5000);
+      Tulos tulos3 = new Tulos(11300, 3, -5000);
+      Tulos tulos4 = new Tulos(8000, 4, -15000);
 
-      tuloksetRepository.save(tulos1);
-      tuloksetRepository.save(tulos2);
-      tuloksetRepository.save(tulos3);
-      tuloksetRepository.save(tulos4);
+      tulosRepository.save(tulos1);
+      tulosRepository.save(tulos2);
+      tulosRepository.save(tulos3);
+      tulosRepository.save(tulos4);
 
       log.info("fetch paikat");
         for (Paikka paikka : paikkaRepository.findAll()) {
@@ -82,8 +82,8 @@ public class MahjongTrackerApplication {
           log.info(pelaaja.toString());
         }
       log.info("fetch tulokset");
-        for (Tulokset tulokset : tuloksetRepository.findAll()) {
-          log.info(tulokset.toString());
+        for (Tulos tulos : tulosRepository.findAll()) {
+          log.info(tulos.toString());
         }
     };
   }

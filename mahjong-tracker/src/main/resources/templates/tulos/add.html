@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuloslista</title>
+</head>
+<body>
+  <h1 style="margin: 10px;">Lisää tulos</h1>
+  <div>
+    <form th:object="${tulos}" th:action="@{/tulos/save}" action="#" method="post">
+      
+      <label for="pisteet">Pisteet</label>
+      <input type="text" id="pisteet" th:field="*{pisteet}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <label for="sijoitus">Sijoitus</label>
+      <input type="text" id="sijoitus" th:field="*{sijoitus}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <label for="umat">UMAT</label>
+      <input type="text" id="umat" th:field="*{umat}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <input type="submit" value="Save"></input>
+    </form>
+  </div>
+</body>
+</html>
