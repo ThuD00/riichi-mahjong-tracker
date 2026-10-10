@@ -33,10 +33,13 @@ public class Tulos {
 
   }
 
-  public Tulos(Integer pisteet, Integer sijoitus, Integer umat) {
+  public Tulos(Integer pisteet, Integer sijoitus, 
+              Integer umat, Pelaaja pelaaja, Peli peli) {
     this.pisteet = pisteet;
     this.sijoitus = sijoitus;
     this.umat = umat;
+    this.pelaaja = pelaaja;
+    this.peli = peli;
   }
 
   public long getTulosId() {
@@ -71,9 +74,28 @@ public class Tulos {
     this.umat = umat;
   }
 
+  public Peli getPeli() {
+    return peli;
+  }
+
+  public void setPeli(Peli peli) {
+    this.peli = peli;
+  }
+
+  public Pelaaja getPelaaja() {
+    return pelaaja;
+  }
+
+  public void setPelaaja(Pelaaja pelaaja) {
+    this.pelaaja = pelaaja;
+  }
+
   @Override
   public String toString() {
-    return "Tulos [tulosId=" + tulosId + ", pisteet=" + pisteet + ", sijoitus=" + sijoitus + ", umat=" + umat + "]";
+    return "Tulos [tulosId=" + tulosId + ", pisteet=" + pisteet + ", sijoitus=" + sijoitus + ", umat=" + umat
+        + ", peli=" + peli + ", pelaaja=" + pelaaja + "]";
   }
+
+  
   
 }

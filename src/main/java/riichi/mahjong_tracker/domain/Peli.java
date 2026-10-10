@@ -28,8 +28,9 @@ public class Peli {
 
   }
 
-  public Peli(LocalDateTime pvm) {
+  public Peli(LocalDateTime pvm, Paikka paikka) {
     this.pvm = pvm;
+    this.paikka = paikka;
   }
 
   public long getPeliId() {
@@ -48,9 +49,17 @@ public class Peli {
     this.pvm = pvm;
   }
 
+  public Paikka getPaikka() {
+    return paikka;
+  }
+
+  public void setPaikka(Paikka paikka) {
+    this.paikka = paikka;
+  }
+
   @Override
   public String toString() {
-    return "Peli [peliId=" + peliId + ", pvm=" + pvm + "]";
+    return "Peli [peliId=" + peliId + ", pvm=" + pvm + ", paikka=" + paikka + "]";
   }
 
 }
