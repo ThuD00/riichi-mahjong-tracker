@@ -11,13 +11,10 @@ public class Pelaaja {
   @Id 
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long pelaajaId; 
-
   private String kutsumaNimi;
-
   private String seura;
-
   private Integer emaNro;
-
+  
   public Pelaaja() {
 
   }

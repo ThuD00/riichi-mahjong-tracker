@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paikkalista</title>
+</head>
+<body>
+  <h1 style="margin: 10px;">Muokkaa paikka</h1>
+  <div>
+    <form th:object="${paikka}" th:action="@{/paikka/save}" action="#" method="post">
+      
+      <!--Lähettää kirjan ID:n käyttäjältä piilossa-->
+      <input type="hidden" th:field="*{paikkaId}" />
+
+      <label for="nimi">Nimi/Seura</label>
+      <input type="text" id="nimi" th:field="*{nimi}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <label for="kaupunki">Kaupunki</label>
+      <input type="text" id="kaupunki" th:field="*{kaupunki}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <input type="submit" value="Save"></input>
+    </form>
+  </div>
+</body>
+</html>

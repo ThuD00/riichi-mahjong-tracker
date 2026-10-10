@@ -1,9 +1,14 @@
 package riichi.mahjong_tracker.domain;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity 
 public class Paikka {
@@ -11,10 +16,12 @@ public class Paikka {
   @Id 
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long paikkaId;
-
   private String nimi;
-
   private String kaupunki;
+
+  @OneToMany(mappedBy = "paikka")
+  @JsonIgnore 
+  private List<Peli> pelit;
 
   public Paikka() {
 

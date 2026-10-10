@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelilista</title>
+</head>
+<body>
+  <h1 style="margin: 10px;">Lisää peli</h1>
+  <div>
+    <form th:object="${peli}" th:action="@{/peli/save}" action="#" method="post">
+      
+      <label for="pvm">Päivämäärä</label>
+      <input type="text" id="pvm" th:field="*{pvm}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <input type="submit" value="Save"></input>
+    </form>
+  </div>
+</body>
+</html>

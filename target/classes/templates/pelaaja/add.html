@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelaajalista</title>
+</head>
+<body>
+  <h1 style="margin: 10px;">Lisää pelaaja</h1>
+  <div>
+    <form th:object="${pelaaja}" th:action="@{/pelaaja/save}" action="#" method="post">
+      
+      <label for="kutsumaNimi">Kutsumanimi</label>
+      <input type="text" id="kutsumaNimi" th:field="*{kutsumaNimi}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <label for="seura">Seura</label>
+      <input type="text" id="seura" th:field="*{seura}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <label for="emaNro">EMA nro</label>
+      <input type="text" id="emaNro" th:field="*{emaNro}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <input type="submit" value="Save"></input>
+    </form>
+  </div>
+</body>
+</html>

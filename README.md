@@ -2,7 +2,7 @@
 
 Harjoitustyön aiheena on riichi-mahjongin pelien ja pelaajien tilastojen hallintaan tarkoitettu verkkosovellus. Sovelluksessa voidaan tallentaa pelattuja riichi-mahjong-pelejä, niissä mukana olleita pelaajia, pelaajien saamia pisteitä ja sijoituksia sekä pelien pelipaikkoja.
 
-![käsitekaavio mahjong trackeristä](mahjong-tracker/docs/kasitekaavio.png)
+![käsitekaavio mahjong trackeristä](docs/kasitekaavio.png)
 
 ## Ominaisuudet
 ### Julkinen näkymä
@@ -34,13 +34,13 @@ Sovelluksen tietokanta koostuu vähintään seuraavista entiteeteistä:
   
  Yksi peli liittyy yhteen pelipaikkaan ja sisältää neljä pelaajakohtaista tulosta. Sama pelaaja voi osallistua useisiin peleihin.
 
- ![luokkakaavio käyttöliittymästä](mahjong-tracker/docs/luokkakaavio.png)
+ ![luokkakaavio käyttöliittymästä](docs/luokkakaavio.png)
 
 ## Käyttöliittymä 
-![use-case-kaavio käyttöliittymästä](mahjong-tracker/docs/use-case-kaavio.png)
+![use-case-kaavio käyttöliittymästä](docs/use-case-kaavio.png)
 
 ## Tietokanta
-![relaatiokaavio käyttöliittymästä](mahjong-tracker/docs/relaatiokaavio.png)
+![relaatiokaavio käyttöliittymästä](docs/relaatiokaavio.png)
 
 ## Tietohakemistokuvaus
 

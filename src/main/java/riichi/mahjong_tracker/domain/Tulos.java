@@ -1,9 +1,13 @@
 package riichi.mahjong_tracker.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity 
 public class Tulos {
@@ -11,12 +15,19 @@ public class Tulos {
   @Id 
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long tulosId;
-
   private Integer pisteet;
-
   private Integer sijoitus;
-
   private Integer umat;
+
+  @ManyToOne
+  @JsonIgnoreProperties("tulokset")
+  @JoinColumn(name = "peliId")
+  private Peli peli;
+
+  @ManyToOne
+  @JsonIgnoreProperties("tulokset")
+  @JoinColumn(name = "pelaajaId")
+  private Pelaaja pelaaja;
 
   public Tulos() {
 
