@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-MahjongTrackerApplication<mahjong-tracker>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "riichi.mahjong_tracker.MahjongTrackerApplication",
+      "projectName": "mahjong-tracker",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
