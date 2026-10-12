@@ -46,24 +46,25 @@ public class MahjongTrackerApplication {
       Pelaaja pelaaja1 = new Pelaaja("Ray", "Aalto Daigaku Maajanbu ry", 12345678);
       Pelaaja pelaaja2 = new Pelaaja("Sami", "Tenpai", 103253852);
       Pelaaja pelaaja3 = new Pelaaja("Matti", "Yama", 123325353);
+      Pelaaja pelaaja4 = new Pelaaja("Meikäläinen", "Yama", 1233288583);
       pelaajaRepository.save(pelaaja1);
       pelaajaRepository.save(pelaaja2);
       pelaajaRepository.save(pelaaja3);
+      pelaajaRepository.save(pelaaja4);
 
       log.info("Pelit");
-      Peli peli1 = new Peli(LocalDateTime.of(2026, 10, 5, 14, 0));
-      Peli peli2 = new Peli(LocalDateTime.of(2026, 10, 5, 17, 0));
-      Peli peli3 = new Peli(LocalDateTime.of(2026, 10, 5, 19, 30));
+      Peli peli1 = new Peli(LocalDateTime.of(2026, 10, 5, 14, 0), paikka1);
+      Peli peli2 = new Peli(LocalDateTime.of(2026, 10, 5, 17, 0), paikka2);
+      Peli peli3 = new Peli(LocalDateTime.of(2026, 10, 5, 19, 30), paikka3);
       peliRepository.save(peli1);
       peliRepository.save(peli2);
       peliRepository.save(peli3);
       
       log.info("Tulokset");
-      Tulos tulos1 = new Tulos(46100, 1, 15000);
-      Tulos tulos2 = new Tulos(34600, 2, 5000);
-      Tulos tulos3 = new Tulos(11300, 3, -5000);
-      Tulos tulos4 = new Tulos(8000, 4, -15000);
-
+      Tulos tulos1 = new Tulos(46100, 1, 15000, pelaaja1, peli1);
+      Tulos tulos2 = new Tulos(34600, 2, 5000, pelaaja2, peli1);
+      Tulos tulos3 = new Tulos(11300, 3, -5000, pelaaja3, peli1);
+      Tulos tulos4 = new Tulos(8000, 4, -15000, pelaaja4, peli1);
       tulosRepository.save(tulos1);
       tulosRepository.save(tulos2);
       tulosRepository.save(tulos3);
