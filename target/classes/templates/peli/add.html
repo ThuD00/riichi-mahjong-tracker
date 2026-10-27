@@ -10,8 +10,13 @@
   <div>
     <form th:object="${peli}" th:action="@{/peli/save}" action="#" method="post">
       
-      <label for="pvm">Päivämäärä</label>
-      <input type="text" id="pvm" th:field="*{pvm}" />
+      <label for="paikka">Paikka</label>
+      <select id="paikka" th:field="*{paikka}" class="form-control">
+        <option th:each="paikka: ${paikat}" 
+                th:value="${paikka.paikkaId}" 
+                th:text="${paikka.nimi}">
+        </option>
+      </select>
       <div style="clear: both; display: block; height: 10px;"></div>
 
       <input type="submit" value="Save"></input>

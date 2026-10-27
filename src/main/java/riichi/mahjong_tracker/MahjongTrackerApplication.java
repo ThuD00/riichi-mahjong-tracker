@@ -53,12 +53,12 @@ public class MahjongTrackerApplication {
       pelaajaRepository.save(pelaaja4);
 
       log.info("Pelit");
-      Peli peli1 = new Peli(LocalDateTime.of(2026, 10, 5, 14, 0), paikka1);
-      Peli peli2 = new Peli(LocalDateTime.of(2026, 10, 5, 17, 0), paikka2);
-      Peli peli3 = new Peli(LocalDateTime.of(2026, 10, 5, 19, 30), paikka3);
+      Peli peli1 = new Peli(LocalDateTime.now(), paikka1);
+      //Peli peli2 = new Peli(LocalDateTime.of(2026, 10, 5, 17, 0), paikka2);
+      //Peli peli3 = new Peli(LocalDateTime.of(2026, 10, 5, 19, 30), paikka3);
       peliRepository.save(peli1);
-      peliRepository.save(peli2);
-      peliRepository.save(peli3);
+      //peliRepository.save(peli2);
+      //peliRepository.save(peli3);
       
       log.info("Tulokset");
       Tulos tulos1 = new Tulos(46100, 1, 15000, pelaaja1, peli1);

@@ -14,12 +14,14 @@
 
   <table class="table table-striped">
     <tr>
+      <th>Pelaaja</th>
       <th>Pisteet</th>
       <th>Sijoitus</th>
       <th>UMAT</th>
     </tr>
     
     <tr th:each="tulos : ${tulokset}">
+      <td th:text="${tulos.pelaaja.kutsumaNimi}"></td>
       <td th:text="${tulos.pisteet}"></td>
       <td th:text="${tulos.sijoitus}"></td>
       <td th:text="${tulos.umat}"></td>
@@ -38,5 +40,6 @@
     </tr>
   </table>
   <a href="/tulos/add" class="btn-success">Lisää tulos</a>
+  <a th:href="@{/peli/lista}">Pelilistaan</a>
 </body>
 </html>

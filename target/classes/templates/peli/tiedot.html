@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelin tiedot</title>
+  <link type="text/css" 
+        rel="stylesheet" 
+        href="css/bootstrap.min.css" 
+        th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+  <div class="container mt-4">
+    <h1>Pelin tiedot</h1>
+
+    <h4>
+      Päivämäärä:
+      <span th:text="${#temporals.format(peli.pvm, 
+            'dd.MM.yy HH:mm')}">
+      </span>
+    </h4>
+
+    <p>
+      Paikka: 
+      <span th:text="${peli.paikka.nimi}"></span>
+    </p>
+
+    <h3>Tulokset</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Pelaaja</th>
+          <th>Pisteet</th>
+          <th>Sijoitus</th>
+          <th>UMAT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="tulos : ${peli.tulokset}">
+          <td th:text="${tulos.pelaaja.kutsumaNimi}"></td>
+          <td th:text="${tulos.pisteet}"></td>
+          <td th:text="${tulos.sijoitus}"></td>
+          <td th:text="${tulos.umat}"></td>
+          <td>
+            <a th:href="@{/tulos/edit/{id}(id=${tulos.tulosId})}" 
+               class="btn btn-primary">
+                Muokkaa
+            </a>
+
+            <a th:href="@{/tulos/delete/{id}(id=${tulos.tulosId})}"
+              class="btn btn-danger"
+              onclick="return confirm('Are you sure you want to delete?')">
+              Poista
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a th:href="@{/tulos/add(peliId=${peli.peliId})}" 
+       class="btn-success">
+       Lisää tulos
+    </a>
+
+    <a th:href="@{/peli/lista}" class="btn btn-secondary">
+      Takaisin pelilistaan
+    </a>
+  </div>
+</body>
+</html>

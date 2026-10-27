@@ -1,5 +1,7 @@
 package riichi.mahjong_tracker.web;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,15 +11,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import riichi.mahjong_tracker.domain.Peli;
+import riichi.mahjong_tracker.repository.PaikkaRepository;
 import riichi.mahjong_tracker.repository.PeliRepository;
 
 @Controller 
 @RequestMapping("/peli")
 public class PeliController {
   private final PeliRepository peliRepository;
+  private final PaikkaRepository paikkaRepository;
 
-  public PeliController(PeliRepository peliRepository) {
+  public PeliController(PeliRepository peliRepository, PaikkaRepository paikkaRepository) {
     this.peliRepository = peliRepository;
+    this.paikkaRepository = paikkaRepository;
   }
 
   @GetMapping("/lista")
@@ -29,6 +34,7 @@ public class PeliController {
   @GetMapping("/add")
   public String addPeli(Model model) {
     model.addAttribute("peli", new Peli());
+    model.addAttribute("paikat", paikkaRepository.findAll());
     return "peli/add";
   }
 
@@ -41,6 +47,7 @@ public class PeliController {
 
   @PostMapping("/save")
   public String savePeli(@ModelAttribute Peli peli) {
+    peli.setPvm(LocalDateTime.now());
     peliRepository.save(peli);
     return "redirect:/peli/lista";
   }
@@ -49,6 +56,17 @@ public class PeliController {
   public String deletePeli(@PathVariable("id") Long peliId, Model model) {
     peliRepository.deleteById(peliId);
     return "redirect:/peli/lista";
+  }
+
+  //hakee yksittäisen pelin ID:n perusteella ja avaa uuden näkymän
+  @GetMapping("/{id}")
+  public String naytaPelinTiedot(@PathVariable("id") Long peliId, Model model) {
+    Peli peli = peliRepository.findById(peliId)
+      .orElseThrow(() -> new RuntimeException("Peliä ei löytynyt"));
+    
+    model.addAttribute("peli", peli);
+
+    return "peli/tiedot";
   }
 }
 
