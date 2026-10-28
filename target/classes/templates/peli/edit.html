@@ -10,7 +10,7 @@
   <div>
     <form th:object="${peli}" th:action="@{/peli/save}" action="#" method="post">
       
-      <!--Lähettää kirjan ID:n käyttäjältä piilossa-->
+      <!--Lähettää pelin ID:n käyttäjältä piilossa-->
       <input type="hidden" th:field="*{peliId}" />
 
       <label for="pvm">Päivämäärä</label>

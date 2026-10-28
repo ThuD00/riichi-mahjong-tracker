@@ -9,9 +9,28 @@
   <h1 style="margin: 10px;">Muokkaa tulos</h1>
   <div>
     <form th:object="${tulos}" th:action="@{/tulos/save}" action="#" method="post">
-      
-      <!--Lähettää kirjan ID:n käyttäjältä piilossa-->
+      <!--Lähettää tulos ID:n käyttäjältä piilossa-->
       <input type="hidden" th:field="*{tulosId}" />
+      <!--Kun käyttäjä tallentaa tuloksen, peliId lähtee lomakkeen mukana save-metodille-->
+      <input type="hidden" name="peliId" th:value="${peli.peliId}" />
+
+      <label for="peli">Peli</label>
+      <select id="peli" th:field="*{peli}" class="form-control">
+        <option th:each="peli: ${pelit}" 
+                th:value="${peli.peliId}" 
+                th:text="${peli.pvm}">
+        </option>
+      </select>
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <label for="pelaaja">Pelaaja</label>
+      <select id="pelaaja" th:field="*{pelaaja}" class="form-control">
+        <option th:each="pelaaja: ${pelaajat}" 
+                th:value="${pelaaja.pelaajaId}" 
+                th:text="${pelaaja.kutsumaNimi}">
+        </option>
+      </select>
+      <div style="clear: both; display: block; height: 10px;"></div>
 
       <label for="pisteet">Pisteet</label>
       <input type="text" id="pisteet" th:field="*{pisteet}" />

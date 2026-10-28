@@ -15,10 +15,12 @@
   <table class="table table-striped">
     <tr>
       <th>Päivämäärä</th>
+      <th>Kerho/paikka</th>
     </tr>
     
     <tr th:each="peli : ${pelit}">
       <td th:text="${#temporals.format(peli.pvm, 'dd.MM.yy HH:mm')}"></td>
+      <td th:text="${peli.paikka.nimi}"></td>
       <td>
         <a th:href="@{/peli/{id}(id=${peli.peliId})}"
           class="btn btn-info">
@@ -38,5 +40,7 @@
     </tr>
   </table>
   <a href="/peli/add" class="btn-success">Lisää peli</a>
+   <a href="/pelaaja/add" class="btn-success">Lisää pelaaja</a>
+  <a href="/paikka/add" class="btn-success">Lisää paikka</a>
 </body>
 </html>

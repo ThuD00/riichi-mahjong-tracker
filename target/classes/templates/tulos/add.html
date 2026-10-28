@@ -9,16 +9,17 @@
   <h1 style="margin: 10px;">Lisää tulos</h1>
   <div>
     <form th:object="${tulos}" th:action="@{/tulos/save}" action="#" method="post">
-      
-      <label for="peli">Peli</label>
+      <!--Kun käyttäjä tallentaa tuloksen, peliId lähtee lomakkeen mukana save-metodille-->
+      <input type="hidden" name="peliId" th:value="${peli.peliId}" />
+
+      <!--<label for="peli">Peli</label>
       <select id="peli" th:field="*{peli}" class="form-control">
         <option th:each="peli: ${pelit}" 
                 th:value="${peli.peliId}" 
                 th:text="${peli.pvm}">
         </option>
-      </select>
+      </select>-->
       <div style="clear: both; display: block; height: 10px;"></div>
-
 
       <label for="pelaaja">Pelaaja</label>
       <select id="pelaaja" th:field="*{pelaaja}" class="form-control">

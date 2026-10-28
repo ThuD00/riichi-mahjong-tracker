@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import riichi.mahjong_tracker.domain.Peli;
 import riichi.mahjong_tracker.domain.Tulos;
 import riichi.mahjong_tracker.repository.PelaajaRepository;
 import riichi.mahjong_tracker.repository.PeliRepository;
@@ -35,24 +37,37 @@ public class TulosController {
   }
 
   @GetMapping("/add")
-  public String addTulos(Model model) {
+  public String addTulos(@RequestParam Long peliId, Model model) {
+    Peli peli = peliRepository.findById(peliId)
+      .orElseThrow(() -> new RuntimeException("Peliä ei löytynyt"));
     model.addAttribute("tulos", new Tulos());
     model.addAttribute("pelaajat", pelaajaRepository.findAll());
-    model.addAttribute("pelit", peliRepository.findAll());
+    model.addAttribute("peli", peli);
     return "tulos/add";
   }
 
   @GetMapping("/edit/{id}")
   public String editTulos(@PathVariable("id") Long tulosId, Model model) {
-    Tulos tulos = tulosRepository.findById(tulosId).get();
+    Tulos tulos = tulosRepository.findById(tulosId)
+      .orElseThrow(() -> new RuntimeException("Peliä ei löytynyt"));
     model.addAttribute("tulos", tulos);
+    model.addAttribute("peli", tulos.getPeli());
+    model.addAttribute("pelit", peliRepository.findAll());
+    model.addAttribute("pelaajat", pelaajaRepository.findAll());
     return "tulos/edit";
   }
 
   @PostMapping("/save")
-  public String saveTulos(@ModelAttribute Tulos tulos) {
+  //param: haetaan arvo URL-osoitteen parametrista tai 
+  //lomakkeen lähettämästä parametrista
+  public String saveTulos(@ModelAttribute Tulos tulos, 
+                          @RequestParam Long peliId) {
+    Peli peli = peliRepository.findById(peliId)
+        .orElseThrow(() -> new RuntimeException("Peliä ei löytynyt"));  
+    //jotta tallennettava tulos yhdistyy varmasti oikeaan peliin
+    tulos.setPeli(peli);
     tulosRepository.save(tulos);
-    return "redirect:/tulos/lista";
+    return "redirect:/peli/" + peliId;
   }
 
   @GetMapping("/delete/{id}")
