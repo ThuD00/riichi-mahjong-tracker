@@ -11,7 +11,12 @@
 </head>
 <body>
   <h1 style="margin: 10px;">Tulokset</h1>
-
+  <h3>Welcome <span sec:authentication="name"></span></h3>
+  <div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
   <table class="table table-striped">
     <tr>
       <th>Pelaaja</th>

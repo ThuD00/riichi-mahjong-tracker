@@ -100,7 +100,7 @@ public class TilastoService {
           .average()
           .orElse(0.0);
 
-      Integer suurinPistemäärä = tulokset.stream()
+      Integer suurinPistemaara = tulokset.stream()
           .map(Tulos::getPisteet)
           .filter(Objects::nonNull)
           .max(Integer::compareTo)
@@ -119,7 +119,7 @@ public class TilastoService {
           keskiarvoSijoitus,
           keskiarvoPisteet,
           keskiarvoUmat,
-          suurinPistemäärä,
+          suurinPistemaara,
           pisteetYht
       ));
     }
@@ -135,7 +135,7 @@ public class TilastoService {
     return pelaajaRepository.count();
   }
 
-  public long haePeliPaikkojenMaara() {
+  public long haePelipaikkojenMaara() {
     return paikkaRepository.count();
   }
 

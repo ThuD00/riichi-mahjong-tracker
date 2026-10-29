@@ -22,16 +22,16 @@ public class WebSecurityConfig {
     .authorizeHttpRequests(authorize -> authorize
       .requestMatchers(
         "/", //etusivu
-        "/paikkalista",
-        "/pelilista",
-        "/pelaajalista",
-        "/tilastot",
+        "/paikka/lista",
+        "/peli/lista",
+        "/pelaaja/lista",
+        "/tilasto",
         "/css/**"
       ).permitAll()
       .anyRequest().authenticated()
     )
     .formLogin(formlogin -> formlogin
-      .defaultSuccessUrl("/paikkalista", true)
+      .defaultSuccessUrl("/peli/lista", true)
       .permitAll()
     )
     .logout(logout -> logout

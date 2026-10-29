@@ -8,7 +8,7 @@ public class PelaajaTilasto {
   private double keskiarvoSijoitus;
   private double keskiarvoPisteet;
   private double keskiarvoUmat;
-  private Integer suurinPistemäärä;
+  private Integer suurinPistemaara;
   private long pisteetYht;
 
   public PelaajaTilasto () {
@@ -22,7 +22,7 @@ public class PelaajaTilasto {
           double keskiarvoSijoitus,
           double keskiarvoPisteet, 
           double keskiarvoUmat, 
-          Integer suurinPistemäärä, 
+          Integer suurinPistemaara, 
           long pisteetYht) {
             
     this.kutsumaNimi = kutsumaNimi;
@@ -31,7 +31,7 @@ public class PelaajaTilasto {
     this.keskiarvoSijoitus = keskiarvoSijoitus;
     this.keskiarvoPisteet = keskiarvoPisteet;
     this.keskiarvoUmat = keskiarvoUmat;
-    this.suurinPistemäärä = suurinPistemäärä;
+    this.suurinPistemaara = suurinPistemaara;
     this.pisteetYht = pisteetYht;
   }
 
@@ -83,12 +83,12 @@ public class PelaajaTilasto {
     this.keskiarvoUmat = keskiarvoUmat;
   }
 
-  public Integer getSuurinPistemäärä() {
-    return suurinPistemäärä;
+  public Integer getSuurinPistemaara() {
+    return suurinPistemaara;
   }
 
-  public void setSuurinPistemäärä(Integer suurinPistemäärä) {
-    this.suurinPistemäärä = suurinPistemäärä;
+  public void setSuurinPistemäärä(Integer suurinPistemaara) {
+    this.suurinPistemaara = suurinPistemaara;
   }
 
   public long getPisteetYht() {
@@ -103,7 +103,7 @@ public class PelaajaTilasto {
   public String toString() {
     return "PelaajaTilasto [kutsumaNimi=" + kutsumaNimi + ", pelienMaara=" + pelienMaara + ", voittojenMaara="
         + voittojenMaara + ", keskiarvoSijoitus=" + keskiarvoSijoitus + ", keskiarvoPisteet=" + keskiarvoPisteet
-        + ", keskiarvoUmat=" + keskiarvoUmat + ", suurinPistemäärä=" + suurinPistemäärä + ", pisteetYht=" + pisteetYht
+        + ", keskiarvoUmat=" + keskiarvoUmat + ", suurinPistemäärä=" + suurinPistemaara + ", pisteetYht=" + pisteetYht
         + "]";
   }
 

@@ -2,6 +2,7 @@ package riichi.mahjong_tracker.web;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class PeliController {
     return "peli/lista";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/add")
   public String addPeli(Model model) {
     model.addAttribute("peli", new Peli());
@@ -38,6 +40,7 @@ public class PeliController {
     return "peli/add";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/edit/{id}")
   public String editPeli(@PathVariable("id") Long peliId, Model model) {
     Peli peli = peliRepository.findById(peliId).get();
@@ -45,6 +48,7 @@ public class PeliController {
     return "peli/edit";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/save")
   public String savePeli(@ModelAttribute Peli peli) {
     peli.setPvm(LocalDateTime.now());
@@ -52,6 +56,7 @@ public class PeliController {
     return "redirect:/peli/lista";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/delete/{id}")
   public String deletePeli(@PathVariable("id") Long peliId, Model model) {
     peliRepository.deleteById(peliId);

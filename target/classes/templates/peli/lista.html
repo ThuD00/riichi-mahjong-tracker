@@ -11,7 +11,13 @@
 </head>
 <body>
   <h1 style="margin: 10px;">Pelit</h1>
-
+  <h3>Welcome <span sec:authentication="name"></span></h3>
+  <div class="col-md-4" style="padding:20px 0">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
+  
   <table class="table table-striped">
     <tr>
       <th>Päivämäärä</th>
@@ -40,7 +46,8 @@
     </tr>
   </table>
   <a href="/peli/add" class="btn btn-outline-dark">Lisää peli</a>
-   <a href="/pelaaja/add" class="btn btn-outline-dark">Lisää pelaaja</a>
+  <a href="/pelaaja/add" class="btn btn-outline-dark">Lisää pelaaja</a>
   <a href="/paikka/add" class="btn btn-outline-dark">Lisää paikka</a>
+  <a href="/tilasto" class="btn btn-outline-dark">Tilastot</a>
 </body>
 </html>

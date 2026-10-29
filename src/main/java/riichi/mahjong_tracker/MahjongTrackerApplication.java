@@ -43,10 +43,10 @@ public class MahjongTrackerApplication {
       paikkaRepository.save(paikka3);
 
       log.info("Pelaajat");
-      Pelaaja pelaaja1 = new Pelaaja("Ray", "Aalto Daigaku Maajanbu ry", 12345678);
+      Pelaaja pelaaja1 = new Pelaaja("Ray", "Aalto", 123456789);
       Pelaaja pelaaja2 = new Pelaaja("Sami", "Tenpai", 103253852);
       Pelaaja pelaaja3 = new Pelaaja("Matti", "Yama", 123325353);
-      Pelaaja pelaaja4 = new Pelaaja("Meikäläinen", "Yama", 1233288583);
+      Pelaaja pelaaja4 = new Pelaaja("Meikäläinen", "Yama", 123328858);
       pelaajaRepository.save(pelaaja1);
       pelaajaRepository.save(pelaaja2);
       pelaajaRepository.save(pelaaja3);

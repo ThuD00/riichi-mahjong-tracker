@@ -1,5 +1,6 @@
 package riichi.mahjong_tracker.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class TulosController {
     return "tulos/lista";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/add")
   public String addTulos(@RequestParam Long peliId, Model model) {
     Peli peli = peliRepository.findById(peliId)
@@ -46,6 +48,7 @@ public class TulosController {
     return "tulos/add";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/edit/{id}")
   public String editTulos(@PathVariable("id") Long tulosId, Model model) {
     Tulos tulos = tulosRepository.findById(tulosId)
@@ -57,6 +60,7 @@ public class TulosController {
     return "tulos/edit";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/save")
   //param: haetaan arvo URL-osoitteen parametrista tai 
   //lomakkeen lähettämästä parametrista
@@ -70,6 +74,7 @@ public class TulosController {
     return "redirect:/peli/" + peliId;
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/delete/{id}")
   public String deleteTulos(@PathVariable("id") Long tulosId, Model model) {
     //hakee poistettava tulos tietokannasta

@@ -1,5 +1,6 @@
 package riichi.mahjong_tracker.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,14 @@ public class PelaajaController {
     return "pelaaja/lista";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/add")
   public String addPelaaja(Model model) {
     model.addAttribute("pelaaja", new Pelaaja());
     return "pelaaja/add";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/edit/{id}")
   public String editPelaaja(@PathVariable("id") Long pelaajaId, Model model) {
     Pelaaja pelaaja = pelaajaRepository.findById(pelaajaId).get();
@@ -40,12 +43,14 @@ public class PelaajaController {
     return "pelaaja/edit";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/save")
   public String savePelaaja(@ModelAttribute Pelaaja pelaaja) {
     pelaajaRepository.save(pelaaja);
     return "redirect:/pelaaja/lista";
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/delete/{id}")
   public String deletePelaaja(@PathVariable("id") Long pelaajaId, Model model) {
     pelaajaRepository.deleteById(pelaajaId);

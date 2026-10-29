@@ -3,9 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Tilastot</title>
+  <link type="text/css" 
+        rel="stylesheet" 
+        href="css/bootstrap.min.css" 
+        th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-  
+  <h1>Mahjong Tracker - Tilastot</h1>
+  <h2>Yhteenveto</h2>
+
+  <p>Pelejä yhteensä: 
+    <span th:text="${pelienMaara}"></span>
+  </p>
+
+  <p>Pelaajia: 
+    <span th:text="${pelaajienMaara}"></span>
+  </p>
+
+  <p>Pelipaikkoja: 
+    <span th:text="${pelipaikkojenMaara}"></span>
+  </p>
+
+  <p>Tuloksia: 
+    <span th:text="${tulostenMaara}"></span>
+  </p>
+
+  <h2>Pelaajatilastot</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Pelaaja</th>
+        <th>Pelejä</th>
+        <th>Voittoja</th>
+        <th>Keskim. sijoitus</th>
+        <th>Keskim. pisteet</th>
+        <th>Keskim. umat</th>
+        <th>Suurin pistemäärä</th>
+        <th>Pisteet yht.</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr th:each="tilasto : ${pelaajaTilastot}">
+        <td th:text="${tilasto.kutsumaNimi}"></td>
+        <td th:text="${tilasto.pelienMaara}"></td>
+        <td th:text="${tilasto.voittojenMaara}"></td>
+         <td th:text="${#numbers.formatDecimal(
+            tilasto.keskiarvoSijoitus, 1, 2)}"></td>
+         <td th:text="${#numbers.formatDecimal(
+            tilasto.keskiarvoPisteet, 1, 0)}"></td>
+        <td th:text="${#numbers.formatDecimal(
+            tilasto.keskiarvoUmat, 1, 0)}"></td>
+        <td th:text="${tilasto.suurinPistemaara}"></td>
+        <td th:text="${tilasto.pisteetYht}"></td>
+      </tr>
+    </tbody>
+  </table>
+  <a href="/peli/lista" class="btn btn-secondary">
+      Takaisin pelilistaan
+  </a>
 </body>
 </html>
