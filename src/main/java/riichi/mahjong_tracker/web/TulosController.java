@@ -49,7 +49,7 @@ public class TulosController {
   @GetMapping("/edit/{id}")
   public String editTulos(@PathVariable("id") Long tulosId, Model model) {
     Tulos tulos = tulosRepository.findById(tulosId)
-      .orElseThrow(() -> new RuntimeException("Peliä ei löytynyt"));
+      .orElseThrow(() -> new RuntimeException("Tulosta ei löytynyt"));
     model.addAttribute("tulos", tulos);
     model.addAttribute("peli", tulos.getPeli());
     model.addAttribute("pelit", peliRepository.findAll());
@@ -64,7 +64,7 @@ public class TulosController {
                           @RequestParam Long peliId) {
     Peli peli = peliRepository.findById(peliId)
         .orElseThrow(() -> new RuntimeException("Peliä ei löytynyt"));  
-    //jotta tallennettava tulos yhdistyy varmasti oikeaan peliin
+    //jotta tallennettava tulos yhdistyy oikeaan peliin
     tulos.setPeli(peli);
     tulosRepository.save(tulos);
     return "redirect:/peli/" + peliId;
@@ -72,8 +72,13 @@ public class TulosController {
 
   @GetMapping("/delete/{id}")
   public String deleteTulos(@PathVariable("id") Long tulosId, Model model) {
+    //hakee poistettava tulos tietokannasta
+    Tulos tulos = tulosRepository.findById(tulosId)
+        .orElseThrow(() -> new RuntimeException("Tulosta ei löytynyt"));
+    //talteen sen pelin ID, johon tulos kuuluu
+    Long peliId = tulos.getPeli().getPeliId();
     tulosRepository.deleteById(tulosId);
-    return "redirect:/tulos/lista";
+    return "redirect:/peli/" + peliId;
   }
 }
 

@@ -28,19 +28,19 @@
         </a>
       </td>
       <td>
+        <a th:href="@{/peli/edit/{id}(id=${peli.peliId})}" class="btn btn-primary">
+          Muokkaa
+        </a>
         <a th:href="@{/peli/delete/{id}(id=${peli.peliId})}"
           class="btn btn-danger"
           onclick="return confirm('Are you sure you want to delete?')">
           Poista
         </a>
-        <a th:href="@{/peli/edit/{id}(id=${peli.peliId})}" class="btn btn-primary">
-          Muokkaa
-        </a>
       </td>
     </tr>
   </table>
-  <a href="/peli/add" class="btn-success">Lisää peli</a>
-   <a href="/pelaaja/add" class="btn-success">Lisää pelaaja</a>
-  <a href="/paikka/add" class="btn-success">Lisää paikka</a>
+  <a href="/peli/add" class="btn btn-outline-dark">Lisää peli</a>
+   <a href="/pelaaja/add" class="btn btn-outline-dark">Lisää pelaaja</a>
+  <a href="/paikka/add" class="btn btn-outline-dark">Lisää paikka</a>
 </body>
 </html>

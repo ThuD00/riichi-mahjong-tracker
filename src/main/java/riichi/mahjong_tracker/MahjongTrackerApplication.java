@@ -37,7 +37,7 @@ public class MahjongTrackerApplication {
       log.info("Paikat");
       Paikka paikka1 = new Paikka("Tenpai", "Tampere");
       Paikka paikka2 = new Paikka("Yama", "Helsinki");
-      Paikka paikka3 = new Paikka("Aalto Daigaku Maajanbu ry", "Espoo");
+      Paikka paikka3 = new Paikka("Aalto", "Espoo");
       paikkaRepository.save(paikka1);
       paikkaRepository.save(paikka2);
       paikkaRepository.save(paikka3);
