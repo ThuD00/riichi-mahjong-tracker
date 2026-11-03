@@ -1,7 +1,8 @@
 package riichi.mahjong_tracker;
-
+import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +20,7 @@ public class WebSecurityConfig {
   @Bean 
   public SecurityFilterChain configure(HttpSecurity http) throws Exception {
     http
+    .csrf(csrf -> csrf.disable())
     .authorizeHttpRequests(authorize -> authorize
       .requestMatchers(
         "/", //etusivu
@@ -28,8 +30,13 @@ public class WebSecurityConfig {
         "/tilasto",
         "/css/**"
       ).permitAll()
+      //API: get-pyynnöt ilman kirjautumista
+      .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+      //muut vaati kirjautumista
+      .requestMatchers("/api/**").authenticated()
       .anyRequest().authenticated()
     )
+    .httpBasic(withDefaults())
     .formLogin(formlogin -> formlogin
       .defaultSuccessUrl("/peli/lista", true)
       .permitAll()

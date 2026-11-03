@@ -1,0 +1,64 @@
+### Hae kaikki tulokset 200
+GET http://localhost:8080/api/tulos
+
+### Hae tulosta ID:llä 200
+GET http://localhost:8080/api/tulos/1
+
+### Hae tulosta ID:llä, jota ei ole 404
+GET http://localhost:8080/api/tulos/99
+
+### Lisää uusi tulos 201
+POST http://localhost:8080/api/tulos
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+  "pisteet": 25000,
+  "sijoitus": 1,
+  "umat": 15,
+  "peliId": 3,
+  "pelaajaId": 1
+}
+
+### Lisää uusi virheellinen tulos 400
+POST http://localhost:8080/api/tulos
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+  "pisteet": 25000,
+  "sijoitus": 5,
+  "umat": 15,
+  "peliId": 3,
+  "pelaajaId": 1
+}
+
+### Muokkaa tulosta 200
+PUT http://localhost:8080/api/tulos/9
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+  "pisteet": 25500,
+  "sijoitus": 1,
+  "umat": 15,
+  "peliId": 3,
+  "pelaajaId": 1
+}
+
+### Muokkaa tulosta, jota ei ole 404
+PUT http://localhost:8080/api/tulos/99
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+  "pisteet": 25500,
+  "sijoitus": 1,
+  "umat": 15,
+  "peliId": 3,
+  "pelaajaId": 1
+}
+
+### Poista tulos 204
+DELETE http://localhost:8080/api/tulos/9
+Authorization: Basic admin admin

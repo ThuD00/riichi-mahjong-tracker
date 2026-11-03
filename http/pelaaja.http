@@ -1,0 +1,41 @@
+### Hae kaikki pelaajat
+GET http://localhost:8080/api/pelaaja
+Accept: application/json
+
+### Hae tietty pelaaja ID:llä
+GET http://localhost:8080/api/pelaaja/1
+Accept: application/json
+
+### Hae tietty pelaaja ID:llä, jota ei ole olemassa
+GET http://localhost:8080/api/pelaaja/99
+Accept: application/json
+
+### Luo uusi pelaaja
+POST http://localhost:8080/api/pelaaja
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+  "kutsumaNimi": "Mikko",
+  "seura": "Aalto",
+  "emaNro": "098765432"
+}
+
+### Muokkaa pelaaja
+PUT http://localhost:8080/api/pelaaja/1
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+  "kutsumaNimi": "Ray",
+  "seura": "Aalto",
+  "emaNro": "123456780"
+}
+
+### Poista pelaaja
+DELETE http://localhost:8080/api/pelaaja/5
+Authorization: Basic admin admin
+
+### Poista pelaaja, jolla on pelihistoria (500)
+DELETE http://localhost:8080/api/pelaaja/1
+Authorization: Basic admin admin

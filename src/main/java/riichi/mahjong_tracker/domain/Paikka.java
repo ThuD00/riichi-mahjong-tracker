@@ -3,20 +3,27 @@ package riichi.mahjong_tracker.domain;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
+@JsonPropertyOrder({"paikkaId", "nimi", "kaupunki"})
 @Entity 
 public class Paikka {
 
   @Id 
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long paikkaId;
+
+  @NotBlank
   private String nimi;
+  
+  @NotBlank
   private String kaupunki;
 
   @OneToMany(mappedBy = "paikka")

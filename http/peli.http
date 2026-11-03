@@ -1,0 +1,43 @@
+### Hae kaikki pelit 200
+GET http://localhost:8080/api/peli
+
+### Hae peli ID:llä 200
+GET http://localhost:8080/api/peli/1
+
+### Hae peli ID:llä, jota ei ole 404
+GET http://localhost:8080/api/peli/99
+
+### Lisää uusi peli 201
+POST http://localhost:8080/api/peli
+Content-Type: application/json
+Authorization: Basic admin admin
+
+{
+  "paikkaId": 1
+}
+
+### Muokkaa peliä 200
+PUT http://localhost:8080/api/peli/3
+Content-Type: application/json
+Authorization: Basic admin admin
+
+{
+  "paikkaId": 2
+}
+
+### Muokkaa peliä, jota ei ole 404
+PUT http://localhost:8080/api/peli/99
+Content-Type: application/json
+Authorization: Basic admin admin
+
+{
+  "peliId": 2
+}
+
+### Poista peli 204
+DELETE http://localhost:8080/api/peli/3
+Authorization: Basic admin admin
+
+### Poista peli, jolla on tulosta 500
+DELETE http://localhost:8080/api/peli/1
+Authorization: Basic admin admin

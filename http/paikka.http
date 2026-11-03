@@ -1,0 +1,25 @@
+### 1. Hae kaikki paikat
+GET http://localhost:8080/api/paikka
+Accept: application/json
+
+### 2. Hae tietty paikka ID:llä
+GET http://localhost:8080/api/paikka/1
+Accept: application/json
+
+### 3. Luo uusi paikka
+POST http://localhost:8080/api/paikka
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+  "nimi": "Nagashi",
+  "kaupunki": "Turku"
+}
+
+### 4. Poista paikka
+DELETE http://localhost:8080/api/paikka/4
+Authorization: Basic admin admin
+
+### 4. Poista paikka, jolla on pelejä (500)
+DELETE http://localhost:8080/api/paikka/1
+Authorization: Basic admin admin

@@ -3,24 +3,31 @@ package riichi.mahjong_tracker.domain;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
+@JsonPropertyOrder({"pelaajaId", "kutsumaNimi", "seura", "emaNro"})
 @Entity 
 public class Pelaaja {
 
   @Id 
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long pelaajaId; 
+
+  @NotBlank
+  @Size(max = 20)
   private String kutsumaNimi;
   private String seura;
   private Integer emaNro;
 
-  @OneToMany(mappedBy = "pelaaja")
+  @OneToMany(mappedBy = "pelaaja") //, cascade = CascadeType.REMOVE? poistaa pelihistorian jos pelaaja poistetaan
   @JsonIgnore
   private List<Tulos> tulokset;
   

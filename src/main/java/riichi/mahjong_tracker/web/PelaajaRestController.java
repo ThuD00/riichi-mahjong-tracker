@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import riichi.mahjong_tracker.domain.Pelaaja;
 import riichi.mahjong_tracker.repository.PelaajaRepository;
 
@@ -42,7 +43,7 @@ public class PelaajaRestController {
 
   @PostMapping
   //lisäys onnistunut ja 201 created
-   public ResponseEntity<Pelaaja> addPelaajaRest(@RequestBody Pelaaja pelaaja) {
+   public ResponseEntity<Pelaaja> addPelaajaRest(@Valid @RequestBody Pelaaja pelaaja) {
     Pelaaja uusiPelaaja = pelaajaRepository.save(pelaaja);
     //HttpStatus.CREATED = 201
     return ResponseEntity.status(HttpStatus.CREATED).body(uusiPelaaja);
@@ -62,7 +63,7 @@ public class PelaajaRestController {
   //muokkaus onnistunut tai 404 not found
   public ResponseEntity<Pelaaja> updatePelaaja(
     @PathVariable("id") long pelaajaId,
-    @RequestBody Pelaaja uusipelaaja) {
+    @Valid @RequestBody Pelaaja uusipelaaja) {
       if (!pelaajaRepository.existsById(pelaajaId)) {
       return ResponseEntity.notFound().build();
     }

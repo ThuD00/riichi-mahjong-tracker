@@ -1,6 +1,7 @@
 package riichi.mahjong_tracker.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,15 +9,27 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
+@JsonPropertyOrder({"tulosId", "pisteet", "sijoitus", "umat"})
 @Entity 
 public class Tulos {
 
   @Id 
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long tulosId;
+
+  @NotNull 
   private Integer pisteet;
+
+  @NotNull 
+  @Min(1)
+  @Max(4)
   private Integer sijoitus;
+
+  @NotNull 
   private Integer umat;
 
   @ManyToOne

@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import riichi.mahjong_tracker.domain.Paikka;
 import riichi.mahjong_tracker.repository.PaikkaRepository;
 
 @RestController 
-@RequestMapping("/api/paikat") 
+@RequestMapping("/api/paikka") 
 public class PaikkaRestController {
   private PaikkaRepository paikkaRepository;
 
@@ -42,7 +43,7 @@ public class PaikkaRestController {
 
   @PostMapping
   //lisäys onnistunut ja 201 created
-   public ResponseEntity<Paikka> addPaikkaRest(@RequestBody Paikka paikka) {
+   public ResponseEntity<Paikka> addPaikkaRest(@Valid @RequestBody Paikka paikka) {
     Paikka uusiPaikka = paikkaRepository.save(paikka);
     //HttpStatus.CREATED = 201
     return ResponseEntity.status(HttpStatus.CREATED).body(uusiPaikka);
@@ -62,7 +63,7 @@ public class PaikkaRestController {
   //muokkaus onnistunut tai 404 not found
   public ResponseEntity<Paikka> updatePaikka(
     @PathVariable("id") long paikkaId,
-    @RequestBody Paikka uusipaikka) {
+    @Valid @RequestBody Paikka uusipaikka) {
       if (!paikkaRepository.existsById(paikkaId)) {
       return ResponseEntity.notFound().build();
     }

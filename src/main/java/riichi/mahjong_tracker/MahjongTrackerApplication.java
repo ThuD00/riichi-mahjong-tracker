@@ -54,10 +54,10 @@ public class MahjongTrackerApplication {
 
       log.info("Pelit");
       Peli peli1 = new Peli(LocalDateTime.now(), paikka1);
-      //Peli peli2 = new Peli(LocalDateTime.of(2026, 10, 5, 17, 0), paikka2);
+      Peli peli2 = new Peli(LocalDateTime.of(2026, 10, 5, 17, 0), paikka2);
       //Peli peli3 = new Peli(LocalDateTime.of(2026, 10, 5, 19, 30), paikka3);
       peliRepository.save(peli1);
-      //peliRepository.save(peli2);
+      peliRepository.save(peli2);
       //peliRepository.save(peli3);
       
       log.info("Tulokset");
@@ -65,10 +65,18 @@ public class MahjongTrackerApplication {
       Tulos tulos2 = new Tulos(34600, 2, 5000, pelaaja2, peli1);
       Tulos tulos3 = new Tulos(11300, 3, -5000, pelaaja3, peli1);
       Tulos tulos4 = new Tulos(8000, 4, -15000, pelaaja4, peli1);
+      Tulos tulos5 = new Tulos(15000, 4, -15000, pelaaja1, peli2);
+      Tulos tulos6 = new Tulos(16000, 3, -5000, pelaaja2, peli2);
+      Tulos tulos7 = new Tulos(39000, 1, 15000, pelaaja3, peli2);
+      Tulos tulos8 = new Tulos(30000, 2, 5000, pelaaja4, peli2);
       tulosRepository.save(tulos1);
       tulosRepository.save(tulos2);
       tulosRepository.save(tulos3);
       tulosRepository.save(tulos4);
+      tulosRepository.save(tulos5);
+      tulosRepository.save(tulos6);
+      tulosRepository.save(tulos7);
+      tulosRepository.save(tulos8);
 
       log.info("fetch paikat");
         for (Paikka paikka : paikkaRepository.findAll()) {
