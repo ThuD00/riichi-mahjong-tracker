@@ -1,16 +1,16 @@
-### Hae kaikki pelaajat
+### Hae kaikki pelaajat 200
 GET http://localhost:8080/api/pelaaja
 Accept: application/json
 
-### Hae tietty pelaaja ID:llä
+### Hae tietty pelaaja ID:llä 200
 GET http://localhost:8080/api/pelaaja/1
 Accept: application/json
 
-### Hae tietty pelaaja ID:llä, jota ei ole olemassa
+### Hae tietty pelaaja ID:llä, jota ei ole olemassa 404
 GET http://localhost:8080/api/pelaaja/99
 Accept: application/json
 
-### Luo uusi pelaaja
+### Luo uusi pelaaja 201
 POST http://localhost:8080/api/pelaaja
 Authorization: Basic admin admin
 Content-Type: application/json
@@ -21,7 +21,7 @@ Content-Type: application/json
   "emaNro": "098765432"
 }
 
-### Muokkaa pelaaja
+### Muokkaa pelaaja 200
 PUT http://localhost:8080/api/pelaaja/1
 Authorization: Basic admin admin
 Content-Type: application/json
@@ -32,10 +32,10 @@ Content-Type: application/json
   "emaNro": "123456780"
 }
 
-### Poista pelaaja
+### Poista pelaaja 204
 DELETE http://localhost:8080/api/pelaaja/5
 Authorization: Basic admin admin
 
-### Poista pelaaja, jolla on pelihistoria (500)
+### Poista pelaaja, jolla on pelihistoria 500
 DELETE http://localhost:8080/api/pelaaja/1
 Authorization: Basic admin admin

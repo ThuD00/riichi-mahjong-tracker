@@ -2,6 +2,7 @@ package riichi.mahjong_tracker;
 import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,7 +43,18 @@ public class WebSecurityConfig {
       .permitAll()
     )
     .logout(logout -> logout
-      .permitAll()
+    .logoutSuccessHandler((request, response, authentication) -> {
+
+      String referer = request.getHeader(HttpHeaders.REFERER);
+
+      if (referer != null) {
+          response.sendRedirect(referer);
+      } else {
+          response.sendRedirect("/");
+      }
+    })
+    .permitAll()
+    
     );
     return http.build();
   }

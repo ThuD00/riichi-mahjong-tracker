@@ -1,12 +1,12 @@
-### 1. Hae kaikki paikat
+### Hae kaikki paikat 200
 GET http://localhost:8080/api/paikka
 Accept: application/json
 
-### 2. Hae tietty paikka ID:llä
+### Hae tietty paikka ID:llä 200
 GET http://localhost:8080/api/paikka/1
 Accept: application/json
 
-### 3. Luo uusi paikka
+### Luo uusi paikka 201
 POST http://localhost:8080/api/paikka
 Authorization: Basic admin admin
 Content-Type: application/json
@@ -16,10 +16,20 @@ Content-Type: application/json
   "kaupunki": "Turku"
 }
 
-### 4. Poista paikka
+### Muokkaa paikka 200
+PUT http://localhost:8080/api/paikka/1
+Authorization: Basic admin admin
+Content-Type: application/json
+
+{
+  "nimi": "Tenpai Seura",
+  "kaupunki": "Tampere"
+}
+
+### Poista paikka 204
 DELETE http://localhost:8080/api/paikka/4
 Authorization: Basic admin admin
 
-### 4. Poista paikka, jolla on pelejä (500)
+### Poista paikka, jolla on pelejä 500
 DELETE http://localhost:8080/api/paikka/1
 Authorization: Basic admin admin

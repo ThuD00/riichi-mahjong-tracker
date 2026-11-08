@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +10,22 @@
         href="css/bootstrap.min.css" 
         th:href="@{/css/bootstrap.min.css}" />
 </head>
-<body>
-  <h1 style="margin: 10px;">Paikat</h1>
-  <h3>Welcome <span sec:authentication="name"></span></h3>
-  <div class="col-md-4" style="padding:20px 0">
+<body class="container mt-4">
+  <h1>Paikat</h1>
+  
+  <div class="col-md-4" style="padding:20px 0"
+        sec:authorize="isAuthenticated()">
 		<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
 		</form>
 	</div>
+
+  <div class="col-md-4" style="padding:20px 0" 
+        sec:authorize="isAnonymous()">
+    <a th:href="@{/login}" class="btn btn-sm btn-primary">
+      Login
+    </a>
+  </div>
 
   <table class="table table-striped">
     <tr>
@@ -42,5 +51,14 @@
     </tr>
   </table>
   <a href="/paikka/add" class="btn btn-outline-primary">Lisää paikka</a>
+  <a href="/peli/lista" class="btn btn-outline-dark">
+      Pelilistaan
+  </a>
+  <a href="/pelaaja/lista" class="btn btn-outline-dark">
+      Pelaajalistaan
+  </a>
+  <a href="/tulos/lista" class="btn btn-outline-dark">
+      Tuloslistaan
+  </a>
 </body>
 </html>

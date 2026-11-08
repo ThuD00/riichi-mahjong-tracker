@@ -9,14 +9,22 @@
         href="css/bootstrap.min.css" 
         th:href="@{/css/bootstrap.min.css}" />
 </head>
-<body>
-  <h1 style="margin: 10px;">Pelaajat</h1>
-  <h3>Welcome <span sec:authentication="name"></span></h3>
-  <div class="col-md-4" style="padding:20px 0">
+<body class="container mt-4">
+  <h1>Pelaajat</h1>
+  
+  <div class="col-md-4" style="padding:20px 0"
+        sec:authorize="isAuthenticated()">
 		<form th:action="@{/logout}" method="post">
 			<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
 		</form>
 	</div>
+
+  <div class="col-md-4" style="padding:20px 0" 
+        sec:authorize="isAnonymous()">
+    <a th:href="@{/login}" class="btn btn-sm btn-primary">
+      Login
+    </a>
+  </div>
   
   <table class="table table-striped">
     <tr>
@@ -44,5 +52,14 @@
     </tr>
   </table>
   <a href="/pelaaja/add" class="btn btn-outline-primary">Lisää pelaaja</a>
+  <a href="/peli/lista" class="btn btn-outline-dark">
+      Pelilistaan
+  </a>
+  <a href="/paikka/lista" class="btn btn-outline-dark">
+      Paikkalistaan
+  </a>
+  <a href="/tulos/lista" class="btn btn-outline-dark">
+      Tuloslistaan
+  </a>
 </body>
 </html>

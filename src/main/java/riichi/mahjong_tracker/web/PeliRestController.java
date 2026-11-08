@@ -20,7 +20,6 @@ import riichi.mahjong_tracker.domain.Peli;
 import riichi.mahjong_tracker.dto.PeliPyynto;
 import riichi.mahjong_tracker.repository.PaikkaRepository;
 import riichi.mahjong_tracker.repository.PeliRepository;
-import riichi.mahjong_tracker.repository.TulosRepository;
 
 @RestController 
 @RequestMapping("/api/peli") 
@@ -28,8 +27,8 @@ public class PeliRestController {
   private PaikkaRepository paikkaRepository;
   private PeliRepository peliRepository;
 
-  public PeliRestController(PaikkaRepository paikkaRepository, TulosRepository tulosRepository,
-      PeliRepository peliRepository) {
+  public PeliRestController(PaikkaRepository paikkaRepository, 
+                            PeliRepository peliRepository) {
     this.paikkaRepository = paikkaRepository;
     this.peliRepository = peliRepository;
   }
@@ -54,7 +53,12 @@ public class PeliRestController {
    public ResponseEntity<Peli> addPeliRest(@Valid @RequestBody PeliPyynto pyynto) {
     //paikan haku ID:n avul
     Paikka paikka = paikkaRepository.findById(pyynto.getPaikkaId())
-        .orElseThrow(() -> new RuntimeException("Paikkaa ei löytynyt"));
+        .orElse(null);
+
+    if (paikka == null) {
+    return ResponseEntity.notFound().build();
+    }
+    
     Peli peli = new Peli();
     peli.setPvm(LocalDateTime.now());
     //paikka peliin

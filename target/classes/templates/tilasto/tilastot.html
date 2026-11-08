@@ -9,59 +9,129 @@
         href="css/bootstrap.min.css" 
         th:href="@{/css/bootstrap.min.css}" />
 </head>
-<body>
-  <h1>Mahjong Tracker - Tilastot</h1>
-  <h2>Yhteenveto</h2>
+<body class="container mt-4">
 
-  <p>Pelejä yhteensä: 
-    <span th:text="${pelienMaara}"></span>
-  </p>
+  <div class="mb-4">
+    <h1 class="fw-bold">Mahjong Tracker</h1>
+    <p class="text-muted">Tilastot ja pelaajien suoritukset</p>
+  </div>
 
-  <p>Pelaajia: 
-    <span th:text="${pelaajienMaara}"></span>
-  </p>
+  <h3 class="mb-3">Yhteenveto</h3>
 
-  <p>Pelipaikkoja: 
-    <span th:text="${pelipaikkojenMaara}"></span>
-  </p>
+  <div class="row g-3 mb-5">
 
-  <p>Tuloksia: 
-    <span th:text="${tulostenMaara}"></span>
-  </p>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <h6 class="text-muted">Pelejä yhteensä</h6>
+          <h2 class="fw-bold text-primary"
+              th:text="${pelienMaara}"></h2>
+        </div>
+      </div>
+    </div>
 
-  <h2>Pelaajatilastot</h2>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Pelaaja</th>
-        <th>Pelejä</th>
-        <th>Voittoja</th>
-        <th>Keskim. sijoitus</th>
-        <th>Keskim. pisteet</th>
-        <th>Keskim. umat</th>
-        <th>Suurin pistemäärä</th>
-        <th>Pisteet yht.</th>
-      </tr>
-    </thead>
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <h6 class="text-muted">Pelaajia</h6>
+          <h2 class="fw-bold text-success"
+              th:text="${pelaajienMaara}"></h2>
+        </div>
+      </div>
+    </div>
 
-    <tbody>
-      <tr th:each="tilasto : ${pelaajaTilastot}">
-        <td th:text="${tilasto.kutsumaNimi}"></td>
-        <td th:text="${tilasto.pelienMaara}"></td>
-        <td th:text="${tilasto.voittojenMaara}"></td>
-         <td th:text="${#numbers.formatDecimal(
-            tilasto.keskiarvoSijoitus, 1, 2)}"></td>
-         <td th:text="${#numbers.formatDecimal(
-            tilasto.keskiarvoPisteet, 1, 0)}"></td>
-        <td th:text="${#numbers.formatDecimal(
-            tilasto.keskiarvoUmat, 1, 0)}"></td>
-        <td th:text="${tilasto.suurinPistemaara}"></td>
-        <td th:text="${tilasto.pisteetYht}"></td>
-      </tr>
-    </tbody>
-  </table>
-  <a href="/peli/lista" class="btn btn-secondary">
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <h6 class="text-muted">Pelipaikkoja</h6>
+          <h2 class="fw-bold text-warning"
+              th:text="${pelipaikkojenMaara}"></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body text-center">
+          <h6 class="text-muted">Tuloksia</h6>
+          <h2 class="fw-bold text-danger"
+              th:text="${tulostenMaara}"></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-header bg-white py-3">
+      <h3 class="mb-0">Pelaajatilastot</h3>
+      <small class="text-muted">
+        Pelaajien suoritukset ja pistetilastot
+      </small>
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Pelaaja</th>
+              <th>Pelejä</th>
+              <th>Voittoja</th>
+              <th>Keskim. sijoitus</th>
+              <th>Keskim. pisteet</th>
+              <th>Keskim. umat</th>
+              <th>Suurin pistemäärä</th>
+              <th>Pisteet yht.</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr th:each="tilasto : ${pelaajaTilastot}">
+
+              <td class="fw-semibold"
+                  th:text="${tilasto.kutsumaNimi}"></td>
+
+              <td th:text="${tilasto.pelienMaara}"></td>
+
+              <td th:text="${tilasto.voittojenMaara}"></td>
+
+              <td th:text="${#numbers.formatDecimal(
+                  tilasto.keskiarvoSijoitus, 1, 2)}"></td>
+
+              <td th:text="${#numbers.formatDecimal(
+                  tilasto.keskiarvoPisteet, 1, 0)}"></td>
+
+              <td th:text="${#numbers.formatDecimal(
+                  tilasto.keskiarvoUmat, 1, 0)}"></td>
+
+              <td th:text="${tilasto.suurinPistemaara}"></td>
+
+              <td class="fw-semibold"
+                  th:text="${tilasto.pisteetYht}"></td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-wrap gap-2 mt-4">
+
+    <a href="/peli/lista" class="btn btn-dark">
       Takaisin pelilistaan
-  </a>
+    </a>
+    <a href="/pelaaja/lista" class="btn btn-outline-dark">
+      Pelaajat
+    </a>
+    <a href="/paikka/lista" class="btn btn-outline-dark">
+      Pelipaikat
+    </a>
+    <a href="/tulos/lista" class="btn btn-outline-dark">
+      Tulokset
+    </a>
+  </div>
+
 </body>
 </html>
