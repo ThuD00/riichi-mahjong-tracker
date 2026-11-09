@@ -6,6 +6,6 @@ public class AloitusControlleri {
    
   @GetMapping("/")
     public String aloitus() {
-      return "redirect:/peli/lista";
+      return "redirect:/tilasto/tilastot";
     }
 }
