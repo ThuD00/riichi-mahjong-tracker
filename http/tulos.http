@@ -33,6 +33,32 @@ Content-Type: application/json
   "pelaajaId": 1
 }
 
+### viides tulos samaan peliin 409
+POST http://localhost:8080/api/tulos
+Content-Type: application/json
+Authorization: Basic admin admin
+
+{
+    "peliId": 1,
+    "pelaajaId": 1,
+    "pisteet": 25000,
+    "sijoitus": 1,
+    "umat": 15
+}
+
+### sama pelaaja uudelleen samaan peliin 409
+POST http://localhost:8080/api/tulos
+Content-Type: application/json
+Authorization: Basic admin admin
+
+{
+    "peliId": 1,
+    "pelaajaId": 1,
+    "pisteet": 30000,
+    "sijoitus": 1,
+    "umat": 15
+}
+
 ### Muokkaa tulosta 200
 PUT http://localhost:8080/api/tulos/9
 Authorization: Basic admin admin

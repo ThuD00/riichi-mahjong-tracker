@@ -53,7 +53,7 @@ public class TulosRestController {
 
   @PostMapping
   //lisäys onnistunut ja 201 created
-   public ResponseEntity<Tulos> addTulosRest(@Valid @RequestBody TulosPyynto pyynto) {
+   public ResponseEntity<Tulos> addTulos(@Valid @RequestBody TulosPyynto pyynto) {
     Peli peli = peliRepository.findById(pyynto.getPeliId())
         .orElse(null);
     if (peli == null) {
@@ -64,6 +64,20 @@ public class TulosRestController {
         .orElse(null);
     if (pelaaja == null) {
       return ResponseEntity.notFound().build();
+    }
+
+    //tulosten määrä tarkistus
+    if (tulosRepository.countByPeli_PeliId(pyynto.getPeliId()) >= 4) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+
+    //onko pelaaja jo pelis
+    boolean pelaajaJoLisatty =
+      tulosRepository.existsByPeli_PeliIdAndPelaaja_PelaajaId(
+      pyynto.getPeliId(), pyynto.getPelaajaId());
+
+    if (pelaajaJoLisatty) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     Tulos tulos = new Tulos();
@@ -78,7 +92,7 @@ public class TulosRestController {
     Tulos uusiTulos = tulosRepository.save(tulos);
     //HttpStatus.CREATED = 201
     return ResponseEntity.status(HttpStatus.CREATED).body(uusiTulos);
-   }
+  }
 
   @DeleteMapping("{id}")
   //204 no content tai 404 not found
@@ -113,6 +127,27 @@ public class TulosRestController {
     if (pelaaja == null) {
       return ResponseEntity.notFound().build();
     }
+
+    //onko peli täynnä
+    //jos tulos kuuluu jo samaan peliin, sitä ei lasketa uutena
+    boolean eriPeli = tulos.getPeli().getPeliId() 
+      != pyynto.getPeliId();
+      
+    if (eriPeli && tulosRepository.countByPeli_PeliId(pyynto.getPeliId()) >= 4) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+
+    //onko sama pelaaja jo toisessa tuloksessa
+    boolean pelaajaJoLisatty =
+      tulosRepository.existsByPeli_PeliIdAndPelaaja_PelaajaIdAndTulosIdNot(
+          pyynto.getPeliId(),
+          pyynto.getPelaajaId(),
+          tulosId);
+
+    if (pelaajaJoLisatty) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+    
     //tuloksen tiedon ja yhteyden päivitys
     tulos.setPisteet(pyynto.getPisteet());
     tulos.setSijoitus(pyynto.getSijoitus());

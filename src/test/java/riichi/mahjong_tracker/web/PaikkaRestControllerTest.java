@@ -158,8 +158,8 @@ public class PaikkaRestControllerTest {
   @Test
   @WithMockUser
   void updatePaikkaNotFound() throws Exception {
-    when(paikkaRepository.existsById(99L))
-      .thenReturn(false);
+    when(paikkaRepository.findById(99L))
+      .thenReturn(Optional.empty());
 
     mockMvc.perform(put(BASE_URL + "/99")
       .contentType(MediaType.APPLICATION_JSON)

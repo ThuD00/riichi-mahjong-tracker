@@ -190,8 +190,8 @@ public class PeliRestControllerTest {
   @Test
   @WithMockUser
   void updatePeliNotFound() throws Exception {
-    when(peliRepository.existsById(99L))
-      .thenReturn(false);
+    when(peliRepository.findById(99L))
+      .thenReturn(Optional.empty());
 
     mockMvc.perform(put(BASE_URL + "/99")
       .contentType(MediaType.APPLICATION_JSON)

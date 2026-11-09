@@ -1,6 +1,5 @@
 package riichi.mahjong_tracker.web;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -15,11 +14,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import riichi.mahjong_tracker.WebSecurityConfig;
-import riichi.mahjong_tracker.domain.Paikka;
 import riichi.mahjong_tracker.domain.Pelaaja;
 import riichi.mahjong_tracker.domain.Peli;
 import riichi.mahjong_tracker.domain.Tulos;
-import riichi.mahjong_tracker.repository.PaikkaRepository;
 import riichi.mahjong_tracker.repository.PelaajaRepository;
 import riichi.mahjong_tracker.repository.PeliRepository;
 import riichi.mahjong_tracker.repository.TulosRepository;
@@ -27,6 +24,7 @@ import riichi.mahjong_tracker.repository.TulosRepository;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -157,10 +155,86 @@ public class TulosRestControllerTest {
 
   @Test
   @WithMockUser
-  void updateTulos() throws Exception {
+  void createFifthTulosConflict() throws Exception {
     Peli peli = new Peli();
     Pelaaja pelaaja = new Pelaaja();
+
+    when(peliRepository.findById(1L))
+      .thenReturn(Optional.of(peli));
+
+    when(pelaajaRepository.findById(5L))
+      .thenReturn(Optional.of(pelaaja));
+
+    when(tulosRepository.countByPeli_PeliId(1L))
+      .thenReturn(4L);
+
+    mockMvc.perform(post(BASE_URL)
+      .contentType(MediaType.APPLICATION_JSON)
+      .content("""
+          {
+            "peliId": 1,
+            "pelaajaId": 5,
+            "pisteet": 20000,
+            "sijoitus": 2,
+            "umat": 5
+          }
+          """))
+      .andExpect(status().isConflict());
+
+    verify(tulosRepository, never()).save(any(Tulos.class));
+  }
+
+  @Test
+  @WithMockUser
+  void createSamePlayerConflict() throws Exception {
+    Peli peli = new Peli();
+    Pelaaja pelaaja = new Pelaaja();
+
+    when(peliRepository.findById(1L))
+      .thenReturn(Optional.of(peli));
+
+    when(pelaajaRepository.findById(2L))
+      .thenReturn(Optional.of(pelaaja));
+
+    when(tulosRepository.countByPeli_PeliId(1L))
+      .thenReturn(1L);
+
+    when(tulosRepository.existsByPeli_PeliIdAndPelaaja_PelaajaId(1L, 2L))
+      .thenReturn(true);
+
+    mockMvc.perform(post(BASE_URL)
+      .contentType(MediaType.APPLICATION_JSON)
+      .content("""
+          {
+            "peliId": 1,
+            "pelaajaId": 2,
+            "pisteet": 20000,
+            "sijoitus": 2,
+            "umat": 5
+          }
+          """))
+      .andExpect(status().isConflict());
+
+    verify(tulosRepository, never()).save(any(Tulos.class));
+  }
+
+  @Test
+  @WithMockUser
+  void updateTulos() throws Exception {
+    Peli peli = mock(Peli.class);
+    Pelaaja pelaaja = new Pelaaja();
     Tulos tulos = new Tulos();
+
+    when(peli.getPeliId()).thenReturn(1L);
+    tulos.setPeli(peli);
+
+    when(tulosRepository.countByPeli_PeliId(1L))
+    .thenReturn(1L);
+
+    //muokataan jo olemassa olevaa tulosta samassa pelissä
+    when(tulosRepository.existsByPeli_PeliIdAndPelaaja_PelaajaIdAndTulosIdNot(
+    1L, 1L, 1L))
+    .thenReturn(false);
 
     when(tulosRepository.findById(1L))
       .thenReturn(Optional.of(tulos));
@@ -209,8 +283,8 @@ public class TulosRestControllerTest {
   @Test
   @WithMockUser
   void updateTulosNotFound() throws Exception {
-    when(peliRepository.existsById(99L))
-      .thenReturn(false);
+    when(peliRepository.findById(99L))
+      .thenReturn(Optional.empty());
 
     mockMvc.perform(put(BASE_URL + "/99")
       .contentType(MediaType.APPLICATION_JSON)

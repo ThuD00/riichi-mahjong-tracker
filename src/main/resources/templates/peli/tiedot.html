@@ -12,6 +12,16 @@
 <body>
   <div class="container mt-4">
     <h1>Pelin tiedot</h1>
+  
+  <div th:if="${param.virhe != null and param.virhe[0] == 'maara'}"
+    class="alert alert-warning">
+    Pelissä voi olla enintään 4 tulosta!
+  </div>
+
+  <div th:if="${param.virhe != null and param.virhe[0] == 'pelaaja'}"
+    class="alert alert-warning">
+    Tämä pelaaja on jo lisätty tähän peliin!
+  </div>
 
     <h4>
       Päivämäärä:

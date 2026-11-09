@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import riichi.mahjong_tracker.domain.Pelaaja;
 import riichi.mahjong_tracker.domain.Peli;
 import riichi.mahjong_tracker.domain.Tulos;
 import riichi.mahjong_tracker.repository.PelaajaRepository;
@@ -32,7 +33,7 @@ public class TulosController {
   }
 
   @GetMapping("/lista")
-  public String TulosLista(Model model) {
+  public String tulosLista(Model model) {
     model.addAttribute("tulokset", tulosRepository.findAll());
     return "tulos/lista";
   }
@@ -65,11 +66,31 @@ public class TulosController {
   //param: haetaan arvo URL-osoitteen parametrista tai 
   //lomakkeen lähettämästä parametrista
   public String saveTulos(@ModelAttribute Tulos tulos, 
-                          @RequestParam Long peliId) {
+                          @RequestParam Long peliId,
+                          @RequestParam Long pelaajaId) {
     Peli peli = peliRepository.findById(peliId)
         .orElseThrow(() -> new RuntimeException("Peliä ei löytynyt"));  
+    Pelaaja pelaaja = pelaajaRepository.findById(pelaajaId)
+        .orElseThrow(() -> new RuntimeException("Pelaajaa ei löytynyt"));
+    
+        //tulosten määrän tarkistus
+    if (peli.getTulokset().size() >= 4) {
+      return "redirect:/peli/" + peliId + "?virhe=maara";
+    }
+    //stream: käydä listan sisältö läpi ja 
+    //tehdä sille erilaisia tarkistuksia
+    boolean pelaajaJoLisatty = peli.getTulokset().stream()
+    //hakee kyseiseen tulokseen liittyvän pelaajan + ID ja vertaa
+    .anyMatch(t -> t.getPelaaja().getPelaajaId() == pelaajaId);
+        //== tulos.getPelaaja().getPelaajaId());
+
+    if (pelaajaJoLisatty) {
+        return "redirect:/peli/" + peliId + "?virhe=pelaaja";
+    }
+
     //jotta tallennettava tulos yhdistyy oikeaan peliin
     tulos.setPeli(peli);
+    tulos.setPelaaja(pelaaja);
     tulosRepository.save(tulos);
     return "redirect:/peli/" + peliId;
   }

@@ -165,8 +165,8 @@ public class PelaajaRestControllerTest {
   @Test
   @WithMockUser
   void updatePelaajaNotFound() throws Exception {
-    when(pelaajaRepository.existsById(99L))
-      .thenReturn(false);
+    when(pelaajaRepository.findById(99L))
+      .thenReturn(Optional.empty());
 
     mockMvc.perform(put(BASE_URL + "/99")
       .contentType(MediaType.APPLICATION_JSON)

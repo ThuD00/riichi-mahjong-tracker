@@ -108,7 +108,5 @@ public class Tulos {
     return "Tulos [tulosId=" + tulosId + ", pisteet=" + pisteet + ", sijoitus=" + sijoitus + ", umat=" + umat
         + ", peli=" + peli + ", pelaaja=" + pelaaja + "]";
   }
-
-  
   
 }

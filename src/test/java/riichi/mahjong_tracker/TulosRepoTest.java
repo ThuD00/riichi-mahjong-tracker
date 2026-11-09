@@ -113,4 +113,75 @@ public class TulosRepoTest {
 
     assertThat(tulosRepository.findById(tulos.getTulosId())).isEmpty();
   }
+
+  @Test
+  void countByPeliId() {
+    Paikka paikka = paikkaRepository.save(
+      new Paikka("Testipaikka", "Helsinki"));
+
+    Peli peli = peliRepository.save(
+      new Peli(LocalDateTime.now(), paikka));
+
+    Pelaaja pelaaja1 = pelaajaRepository.save(
+      new Pelaaja("Pelaaja1", "Club", 12345));
+
+    Pelaaja pelaaja2 = pelaajaRepository.save(
+      new Pelaaja("Pelaaja2", "Club", 12346));
+
+    tulosRepository.save(new Tulos(25000, 1, 15000, pelaaja1, peli));
+    tulosRepository.save(new Tulos(20000, 2, 5000, pelaaja2, peli));
+
+    assertThat(tulosRepository.countByPeli_PeliId(peli.getPeliId()))
+      .isEqualTo(2);
+  }
+
+  @Test
+  void existsByPeliIdAndPelaajaId() {
+    Paikka paikka = paikkaRepository.save(
+      new Paikka("Testipaikka", "Helsinki"));
+
+    Peli peli = peliRepository.save(
+      new Peli(LocalDateTime.now(), paikka));
+
+    Pelaaja pelaaja = pelaajaRepository.save(
+      new Pelaaja("Testipelaaja", "Club", 12345));
+
+    tulosRepository.save(
+      new Tulos(25000, 1, 15000, pelaaja, peli));
+
+    assertThat(tulosRepository.existsByPeli_PeliIdAndPelaaja_PelaajaId(
+      peli.getPeliId(), pelaaja.getPelaajaId()))
+      .isTrue();
+  }
+
+  @Test
+  void existsByPeliIdAndPelaajaIdAndTulosIdNot() {
+    Paikka paikka = paikkaRepository.save(
+      new Paikka("Testipaikka", "Helsinki"));
+
+    Peli peli = peliRepository.save(
+      new Peli(LocalDateTime.now(), paikka));
+
+    Pelaaja pelaaja = pelaajaRepository.save(
+      new Pelaaja("Testipelaaja", "Club", 12345));
+
+    Tulos tulos = tulosRepository.save(
+      new Tulos(25000, 1, 15000, pelaaja, peli));
+
+    //pelaaja löytyy vain tästä samasta tuloksesta
+    assertThat(tulosRepository
+      .existsByPeli_PeliIdAndPelaaja_PelaajaIdAndTulosIdNot(
+          peli.getPeliId(), pelaaja.getPelaajaId(), tulos.getTulosId()))
+      .isFalse();
+
+    //lisätään toinen tulos samalla pelaajalla
+    tulosRepository.save(
+      new Tulos(30000, 2, 5000, pelaaja, peli));
+
+    //nyt pelaaja löytyy toisesta tuloksesta.
+    assertThat(tulosRepository
+      .existsByPeli_PeliIdAndPelaaja_PelaajaIdAndTulosIdNot(
+          peli.getPeliId(), pelaaja.getPelaajaId(), tulos.getTulosId()))
+      .isTrue();
+  }
 }

@@ -24,10 +24,10 @@ public class WebSecurityConfig {
     .csrf(csrf -> csrf.disable())
     .authorizeHttpRequests(authorize -> authorize
       .requestMatchers(
-        "/", //etusivu
         "/paikka/lista",
         "/peli/lista",
         "/pelaaja/lista",
+        "/tulos/lista",
         "/tilasto",
         "/css/**"
       ).permitAll()
