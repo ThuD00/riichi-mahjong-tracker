@@ -27,7 +27,7 @@ public class WebSecurityConfig {
         "/", 
         "/paikka/lista",
         "/peli/lista",
-        "/peli/tiedot",
+        "/peli/*",
         "/pelaaja/lista",
         "/tulos/lista",
         "/tilasto",
