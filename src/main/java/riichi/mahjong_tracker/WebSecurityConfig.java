@@ -24,11 +24,13 @@ public class WebSecurityConfig {
     .csrf(csrf -> csrf.disable())
     .authorizeHttpRequests(authorize -> authorize
       .requestMatchers(
+        "/", 
         "/paikka/lista",
         "/peli/lista",
         "/pelaaja/lista",
         "/tulos/lista",
         "/tilasto",
+        "/tilastot",
         "/css/**"
       ).permitAll()
       //API: get-pyynnöt ilman kirjautumista
