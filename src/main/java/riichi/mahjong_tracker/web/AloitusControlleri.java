@@ -8,6 +8,6 @@ public class AloitusControlleri {
    
   @GetMapping("/")
     public String aloitus() {
-      return "redirect:/tilasto/tilastot";
+      return "redirect:/tilasto";
     }
 }

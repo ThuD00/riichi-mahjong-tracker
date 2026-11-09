@@ -30,7 +30,6 @@ public class WebSecurityConfig {
         "/pelaaja/lista",
         "/tulos/lista",
         "/tilasto",
-        "/tilastot",
         "/css/**"
       ).permitAll()
       //API: get-pyynnöt ilman kirjautumista
