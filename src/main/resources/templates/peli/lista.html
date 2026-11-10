@@ -12,6 +12,11 @@
 <body class="container mt-4">
   <h1>Pelit</h1>
 
+  <div th:if="${param.virhe != null and param.virhe[0] == 'tuloksia'}"
+     class="alert alert-warning">
+    Peliä ei voi poistaa, koska siihen liittyy tuloksia!
+  </div>
+
   <div class="col-md-4" style="padding:20px 0"
         sec:authorize="isAuthenticated()">
 		<form th:action="@{/logout}" method="post">
@@ -42,9 +47,6 @@
         </a>
       </td>
       <td>
-        <a th:href="@{/peli/edit/{id}(id=${peli.peliId})}" class="btn btn-primary">
-          Muokkaa
-        </a>
         <a th:href="@{/peli/delete/{id}(id=${peli.peliId})}"
           class="btn btn-danger"
           onclick="return confirm('Are you sure you want to delete?')">

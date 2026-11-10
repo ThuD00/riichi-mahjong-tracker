@@ -2,6 +2,7 @@ package riichi.mahjong_tracker.web;
 
 import java.time.LocalDateTime;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +60,11 @@ public class PeliController {
   @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/delete/{id}")
   public String deletePeli(@PathVariable("id") Long peliId, Model model) {
-    peliRepository.deleteById(peliId);
+    try {
+      peliRepository.deleteById(peliId);
+    } catch (DataIntegrityViolationException e) {
+      return "redirect:/peli/lista?virhe=tuloksia";
+    }
     return "redirect:/peli/lista";
   }
 

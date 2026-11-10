@@ -41,12 +41,11 @@ public class WebSecurityConfig {
     )
     .httpBasic(withDefaults())
     .formLogin(formlogin -> formlogin
-      .defaultSuccessUrl("/peli/lista", true)
+      .defaultSuccessUrl("/peli/lista", false)
       .permitAll()
     )
     .logout(logout -> logout
     .logoutSuccessHandler((request, response, authentication) -> {
-
       String referer = request.getHeader(HttpHeaders.REFERER);
 
       if (referer != null) {

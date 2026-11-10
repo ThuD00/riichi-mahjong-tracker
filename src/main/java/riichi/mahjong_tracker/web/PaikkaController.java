@@ -1,5 +1,6 @@
 package riichi.mahjong_tracker.web;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,7 +53,11 @@ public class PaikkaController {
   @PreAuthorize("hasRole('ADMIN')")
   @GetMapping("/delete/{id}")
     public String deletePaikka(@PathVariable("id") Long paikkaId, Model model) {
-      paikkaRepository.deleteById(paikkaId);
+      try {
+        paikkaRepository.deleteById(paikkaId);
+      } catch (DataIntegrityViolationException e) {
+        return "redirect:/paikka/lista?virhe=tuloksia";
+      }
       return "redirect:/paikka/lista";
   }
   

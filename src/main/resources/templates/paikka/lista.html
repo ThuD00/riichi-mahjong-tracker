@@ -12,6 +12,11 @@
 </head>
 <body class="container mt-4">
   <h1>Paikat</h1>
+
+  <div th:if="${param.virhe != null and param.virhe[0] == 'tuloksia'}"
+       class="alert alert-warning">
+    Paikkaa ei voi poistaa, koska siihen liittyy pelejä!
+  </div>
   
   <div class="col-md-4" style="padding:20px 0"
         sec:authorize="isAuthenticated()">
